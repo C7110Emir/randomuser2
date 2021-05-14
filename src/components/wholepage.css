@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+body{
+    background:linear-gradient(120deg,#5DADE2  50%,#48C9B0 60%)
+}
+.outerDiv{
+    border:1px solid black;
+    width:40rem;
+    height:35rem;
+    background:linear-gradient(to bottom,lightgray 10%, white 60%);
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    box-shadow: 10px 10px 10px 10px lightskyblue;
+}
+.image{
+    border-radius: 200px;
+    margin-top: 1rem;
+}
+.datatext{
+    text-align:center;
+    font-size:25px;
+    font-family: 'Lobster', cursive;
+}
+.imagediv{
+    text-align: center
+}
