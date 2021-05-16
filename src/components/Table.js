@@ -6,10 +6,11 @@ export default function Table(props) {
         <div>
             <div className="tablecontent">
                 <table>
-                    <tr>{props.name}</tr>
-                    <tr>{props.email}</tr>
-                    <tr>{props.phone}</tr>
-                    <tr>{props.age}</tr>
+                    <tr>
+                        <td>{props.name}</td>
+                        
+
+                    </tr>
                 </table>
             </div>
         </div>

@@ -2,81 +2,121 @@ import React from 'react'
 import "./wholepage.css"
 import {useEffect, useState} from 'react'
 import axios from 'axios'
-import growingupman from "./images/growing-up-man.svg"
-import growingupwomen from "./images/growing-up-woman.svg"
+import growingMan from "./images/growing-up-man.svg"
+import growingWoman from "./images/growing-up-woman.svg"
 import mail from "./images/mail.svg"
 import man from "./images/man.svg"
 import map from "./images/map.svg"
 import padlock from "./images/padlock.svg"
 import phone from "./images/phone.svg"
 import woman from "./images/woman.svg"
-import Table from "./Table"
-const arr = []
+
 export default function Wholepage() {
 
-    const [data,setData] = useState([])
-    const [text,setText] = useState("My Name is")
-    const [currentData, setCurrentData] = useState()
-    const [tableheader, setTableheader] = useState(false)
+    const [info, setInfo] = useState([])
+    const [ tableContent, setTableContent ] = useState(false)
+    const [ userList, setUserList ] = useState( [] )
+    const [personal, setPersonal] = useState("name")
+    const [ newUser, setNewUser ] = useState("NEW USER")
     
-    
-    const getData = () =>{
-        axios.get("https://randomuser.me/api/").then((res)=>{
-            setData(res.data.results)
-            setCurrentData(res.data.results[0].name.title + " " + res.data.results[0].name.first + " " + res.data.results[0].name.last)
-        })
+    const fetchData = () => {
+      setNewUser("LOADING...")
+      axios.get("https://randomuser.me/api/")
+      .then((res) => setInfo(res.data.results[0]))
+      .then(() => setNewUser("NEW USER"))
     }
-    useEffect(()=>{
-        getData();
-    },[])
-    const handleAddUser = () =>{
-        arr.push({name: data[0].name.title + " " + data[0].name.first + " " + data[0].name.last , email: data[0].email , phone: data[0].cell, age:data[0].dob.age})
-        setTableheader(true)
+  
+    useEffect(() => {
+      fetchData()
+    }, [])
+  
+    const addUser = () => {
+      // const twice = (user) => user.email == info.email
+      // if(userList.some(twice)){
+      //   alert("Nope")
+        
+      if(userList.filter(user => user.email === info.email).length > 0){
+        alert("You already added this user")
+      }else{
+        setUserList( 
+          [
+          ...userList,
+          {
+            name : info?.name?.first,
+            email : info?.email,
+            phone : info?.phone,
+            age : info?.dob?.age
+          }
+        ] )
+      }
+      
+        setTableContent(true)
+       
     }
-    
-    
+  
+    const handleClick = (information) => {
+      setPersonal(information)
+    }
+  
+    // console.log(info)
+    // console.log(userList)
+  
     return (
-        <div className="outerDiv">
-
-            {data?.map((element)=>{
-
-
-                return(
-                    <div className="contentdiv">
-                    <div className="imagentext">
-                        <img src={element.picture.large} className="image" alt="userimage"/><br/><br/>
-                        
-                        <div className="datatext">{text}<br/><br/>{currentData}</div>
-                        </div>
-                    <div className="hoverimages">
-                        <img src={element.gender == "male" ? man : woman} alt="loading" className="img" onMouseOver={() => {setText("My Name Is") ; setCurrentData(element.name.title + " " + element.name.first + " " + element.name.last)}}/>
-                        <img src={mail} className="img" alt="loading" onMouseOver={()=>{setText("My Email Is") ; setCurrentData(element.email)}}/>
-                        <img src={element.gender == "male" ? growingupman : growingupwomen} className="img" onMouseOver={()=>{setText("My Age Is"); setCurrentData(element.dob.age)}}/>
-                        <img src={map} className="img" alt="loading" onMouseOver={()=>{setText("My Street Address is"); setCurrentData(element.location.street.number +" " + element.location.street.name)}}/>
-                        <img src={phone} className="img" alt="loading" onMouseOver={()=>{setText("My Phone Number Is") ; setCurrentData(element.cell)}}/>
-                        <img src={padlock} className="img" alt="Loading" onMouseOver={() => {setText("My Password Is") ; setCurrentData(element.login.password)}}/>
-                    </div>
-                    <div className="buttondiv">
-                    <button className="button" onClick={getData}>New User</button>
-                    <button className="button" onClick={handleAddUser}>Add User</button>
-                    </div>
-                </div>
-                )
-            })}
-            {tableheader ? 
-                <div>
-                    <table>
-                        <th>
-                            <tr>Name</tr>
-                            <tr>Email</tr>
-                            <tr>Phone</tr>
-                            <tr>Age</tr>
-                        </th>
-                    </table>
-                </div>
-            : null}
+      <div className="App">
+        
+        <div className="card">
+          <div className="card-title-background"></div>
+          <img alt="img" src={info?.picture?.large} className="image" />
+          <div className="personal-info">
+            <p>My {personal} is</p>
+            <p>{personal === "name" && info?.name?.title} {personal === "name" && info?.name?.first} {personal === "name" && info?.name?.last}</p>
+            <p>{personal === "email" && info?.email}</p>
+            <p>{personal === "age" && info?.dob?.age}</p>
+            <p>{personal === "street" && info?.location?.street?.number} {personal === "street" && info?.location?.street?.name}  </p>
+            <p>{personal === "phone" && info?.phone} </p>
+            <p>{personal === "password" && info?.login?.password }</p>
+          </div> 
+          <div className="icons">
+          <acronym title="gender"><img alt="man-woman" src={info?.gender === "female" ? woman : man} onClick={() => handleClick("name")} /></acronym>
+          <acronym title="email"><img alt="email" src={mail} onClick={() => handleClick("email")} /></acronym>
+          <acronym title="age"><img alt="growingman-woman" src={info?.gender === "female" ? growingWoman : growingMan} onClick={() => handleClick("age")} /></acronym>
+          <acronym title="street"><img alt="street" src={map} onClick={() => handleClick("street")} /></acronym>
+          <acronym title="phone"><img alt="phone" src={phone} onClick={() => handleClick("phone")} /></acronym>
+          <acronym title="password"><img alt="password" src={padlock} onClick={() => handleClick("password")} /></acronym>
+          
             
-
+          </div>
+          <div className="buttons">
+            <button onClick = {fetchData }> {newUser}</button>
+            <button onClick={addUser} >ADD USER</button>
+          </div>
+          <div className="list">
+            { tableContent && 
+              <table>
+              <thead>
+              <tr>
+              <th>First Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Age</th>
+              </tr>
+              </thead>
+             <tbody>
+              {
+                userList?.map((user, index) => (
+                  <tr key={index}>
+                 <td>{user.name}</td>
+                 <td>{user.email}</td>
+                 <td>{user.phone}</td>
+                 <td>{user.age}</td>
+                 </tr>
+              ))
+            }
+            </tbody>
+              </table>
+          }
+          </div>
         </div>
-    )
-}
+      </div>
+    );
+  }
