@@ -21,6 +21,10 @@ body{
     font-size:25px;
     font-family: 'Lobster', cursive;
 }
-.imagediv{
+.imagentext{
     text-align: center
+}
+.img{
+    height: 3em;
+    border-radius: 5px;
 }
