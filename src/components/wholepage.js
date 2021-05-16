@@ -52,6 +52,7 @@ export default function Wholepage() {
                         
                 )
             })}
+            <button className="newuserbutton" >New User</button>
         </div>
     )
 }

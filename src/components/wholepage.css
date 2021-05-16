@@ -7,14 +7,14 @@ body{
     width:40rem;
     height:35rem;
     background:linear-gradient(to bottom,lightgray 10%, white 60%);
-    display:flex;
-    flex-direction:column;
+    
     align-items: center;
     box-shadow: 10px 10px 10px 10px lightskyblue;
 }
 .image{
     border-radius: 200px;
     margin-top: 1rem;
+    width: 15rem;
 }
 .datatext{
     text-align:center;
@@ -22,9 +22,18 @@ body{
     font-family: 'Lobster', cursive;
 }
 .imagentext{
-    text-align: center
+    text-align: center;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+
 }
 .img{
     height: 3em;
     border-radius: 5px;
+}
+.hoverimages{
+    display:flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
 }
