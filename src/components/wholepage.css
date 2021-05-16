@@ -5,11 +5,12 @@ body{
 .outerDiv{
     border:1px solid black;
     width:40rem;
-    height:35rem;
+    height:auto;
     background:linear-gradient(to bottom,lightgray 10%, white 60%);
     
     align-items: center;
     box-shadow: 10px 10px 10px 10px lightskyblue;
+
 }
 .image{
     border-radius: 200px;
@@ -30,10 +31,22 @@ body{
 }
 .img{
     height: 3em;
-    border-radius: 5px;
+    border-radius: 25px;
+    background-color: lightgray;
 }
 .hoverimages{
     display:flex;
     justify-content: space-evenly;
     margin-top: 1rem;
+}
+.buttondiv{
+    display:flex;
+    justify-content:space-evenly;
+    margin-top: 3rem;
+    margin-bottom:3rem
+}
+
+.button{
+    height: 3rem;
+    width: 10rem;
 }

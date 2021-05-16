@@ -52,7 +52,10 @@ export default function Wholepage() {
                         
                 )
             })}
-            <button className="newuserbutton" >New User</button>
+            <div className="buttondiv">
+            <button className="button" onClick={getData}>New User</button>
+            <button className="button">Add User</button>
+            </div>
         </div>
     )
 }
