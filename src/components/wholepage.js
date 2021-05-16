@@ -45,6 +45,8 @@ export default function Wholepage() {
                         <img src={mail} className="img" alt="loading" onMouseOver={()=>{setText("My Email Is") ; setCurrentData(element.email)}}/>
                         <img src={element.gender == "male" ? growingupman : growingupwomen} className="img" onMouseOver={()=>{setText("My Age Is"); setCurrentData(element.dob.age)}}/>
                         <img src={map} className="img" alt="loading" onMouseOver={()=>{setText("My Street Address is"); setCurrentData(element.location.street.number +" " + element.location.street.name)}}/>
+                        <img src={phone} className="img" alt="loading" onMouseOver={()=>{setText("My Phone Number Is") ; setCurrentData(element.cell)}}/>
+                        <img src={padlock} className="img" alt="Loading" onMouseOver={() => {setText("My Password Is") ; setCurrentData(element.login.password)}}/>
                     </div>
                     </div>
                         
