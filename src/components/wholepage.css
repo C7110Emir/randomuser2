@@ -49,4 +49,6 @@ body{
 .button{
     height: 3rem;
     width: 10rem;
+    background-color:orange;
+    color: white;
 }

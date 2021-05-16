@@ -15,6 +15,7 @@ export default function Wholepage() {
     const [data,setData] = useState([])
     const [text,setText] = useState("My Name is")
     const [currentData, setCurrentData] = useState()
+    const arr = []
     const getData = () =>{
         axios.get("https://randomuser.me/api/").then((res)=>{
             setData(res.data.results)
@@ -24,6 +25,10 @@ export default function Wholepage() {
     useEffect(()=>{
         getData();
     },[])
+    const handleAddUser = () =>{
+        arr.push({name: data[0].name.title + " " + data[0].name.first + " " + data[0].name.last , email: data[0].email , phone: data[0].cell, age:data[0].dob.age})
+        console.log(arr)
+    }
     
     
     return (
@@ -36,7 +41,7 @@ export default function Wholepage() {
                 return(
                     <div className="contentdiv">
                     <div className="imagentext">
-                        <img src={element.picture.large} className="image" alt="userimage"/><br/><hr/><br/>
+                        <img src={element.picture.large} className="image" alt="userimage"/><br/><br/>
                         
                         <div className="datatext">{text}<br/><br/>{currentData}</div>
                         </div>
@@ -48,14 +53,33 @@ export default function Wholepage() {
                         <img src={phone} className="img" alt="loading" onMouseOver={()=>{setText("My Phone Number Is") ; setCurrentData(element.cell)}}/>
                         <img src={padlock} className="img" alt="Loading" onMouseOver={() => {setText("My Password Is") ; setCurrentData(element.login.password)}}/>
                     </div>
+                    <div className="buttondiv">
+                    <button className="button" onClick={getData}>New User</button>
+                    <button className="button" onClick={handleAddUser}>Add User</button>
                     </div>
-                        
+                    {arr.length > 0 ? <div>
+                        <table>
+                            <tr>
+                                <th>Firstname</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Age</th>
+                            </tr>
+                        </table>
+                    </div>
+                    :0}
+                    {arr.length > 0 ? arr.map((element)=>{
+                    <tr>
+                        <td>{element.name}</td>
+                        <td>{element.email}</td>
+                        <td>{element.phone}</td>
+                        <td>{element.age}</td>
+                    </tr>
+                    }): 0}
+                    </div>
                 )
             })}
-            <div className="buttondiv">
-            <button className="button" onClick={getData}>New User</button>
-            <button className="button">Add User</button>
-            </div>
+            
         </div>
     )
 }
