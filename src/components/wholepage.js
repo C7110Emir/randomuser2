@@ -10,12 +10,14 @@ import map from "./images/map.svg"
 import padlock from "./images/padlock.svg"
 import phone from "./images/phone.svg"
 import woman from "./images/woman.svg"
-
+import Table from "./Table"
+const arr = []
 export default function Wholepage() {
 
     const [data,setData] = useState([])
     const [text,setText] = useState("My Name is")
     const [currentData, setCurrentData] = useState()
+    const [tableheader, setTableheader] = useState(false)
     
     
     const getData = () =>{
@@ -28,13 +30,13 @@ export default function Wholepage() {
         getData();
     },[])
     const handleAddUser = () =>{
-    
+        arr.push({name: data[0].name.title + " " + data[0].name.first + " " + data[0].name.last , email: data[0].email , phone: data[0].cell, age:data[0].dob.age})
+        setTableheader(true)
     }
     
     
     return (
         <div className="outerDiv">
-
 
             {data?.map((element)=>{
 
@@ -58,13 +60,23 @@ export default function Wholepage() {
                     <button className="button" onClick={getData}>New User</button>
                     <button className="button" onClick={handleAddUser}>Add User</button>
                     </div>
-                    
-
-                    
-                    </div>
+                </div>
                 )
             })}
-      
+            {tableheader ? 
+                <div>
+                    <table>
+                        <th>
+                            <tr>Name</tr>
+                            <tr>Email</tr>
+                            <tr>Phone</tr>
+                            <tr>Age</tr>
+                        </th>
+                    </table>
+                </div>
+            : null}
+            
+
         </div>
     )
 }
