@@ -12,10 +12,11 @@ import phone from "./images/phone.svg"
 import woman from "./images/woman.svg"
 
 export default function Wholepage() {
+
     const [data,setData] = useState([])
     const [text,setText] = useState("My Name is")
     const [currentData, setCurrentData] = useState()
-    const [arr, setArr] = useState([])
+    
     
     const getData = () =>{
         axios.get("https://randomuser.me/api/").then((res)=>{
@@ -27,15 +28,13 @@ export default function Wholepage() {
         getData();
     },[])
     const handleAddUser = () =>{
-        arr.push({name: data[0].name.title + " " + data[0].name.first + " " + data[0].name.last , email: data[0].email , phone: data[0].cell, age:data[0].dob.age})
-       
-        console.log(arr)
+    
     }
     
     
     return (
         <div className="outerDiv">
-            
+
 
             {data?.map((element)=>{
 
@@ -58,36 +57,14 @@ export default function Wholepage() {
                     <div className="buttondiv">
                     <button className="button" onClick={getData}>New User</button>
                     <button className="button" onClick={handleAddUser}>Add User</button>
-                    </div><table>
-                    {arr.length > 0 ? <div>
-                        
-                            <tr>
-                                <th>Firstname</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Age</th>
-                            </tr>
-                        
                     </div>
-                    :null}
-                    {arr.length > 0 ? arr.map((element)=>{
-                        return (
                     
-                        <tr>
-                            <td>{element.name}</td>
-                            <td>{element.email}</td>
-                            <td>{element.phone}</td>
-                            <td>{element.age}</td>
-                        </tr>
+
                     
-                   
-                    )
-                    }): null}
-                    </table>
                     </div>
                 )
             })}
-            
+      
         </div>
     )
 }
