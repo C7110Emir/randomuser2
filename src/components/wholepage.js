@@ -15,7 +15,8 @@ export default function Wholepage() {
     const [data,setData] = useState([])
     const [text,setText] = useState("My Name is")
     const [currentData, setCurrentData] = useState()
-    const arr = []
+    const [arr, setArr] = useState([])
+    
     const getData = () =>{
         axios.get("https://randomuser.me/api/").then((res)=>{
             setData(res.data.results)
@@ -27,6 +28,7 @@ export default function Wholepage() {
     },[])
     const handleAddUser = () =>{
         arr.push({name: data[0].name.title + " " + data[0].name.first + " " + data[0].name.last , email: data[0].email , phone: data[0].cell, age:data[0].dob.age})
+       
         console.log(arr)
     }
     
@@ -36,7 +38,7 @@ export default function Wholepage() {
             
 
             {data?.map((element)=>{
-                console.log(element)
+
 
                 return(
                     <div className="contentdiv">
@@ -56,26 +58,32 @@ export default function Wholepage() {
                     <div className="buttondiv">
                     <button className="button" onClick={getData}>New User</button>
                     <button className="button" onClick={handleAddUser}>Add User</button>
-                    </div>
+                    </div><table>
                     {arr.length > 0 ? <div>
-                        <table>
+                        
                             <tr>
                                 <th>Firstname</th>
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Age</th>
                             </tr>
-                        </table>
+                        
                     </div>
-                    :0}
+                    :null}
                     {arr.length > 0 ? arr.map((element)=>{
-                    <tr>
-                        <td>{element.name}</td>
-                        <td>{element.email}</td>
-                        <td>{element.phone}</td>
-                        <td>{element.age}</td>
-                    </tr>
-                    }): 0}
+                        return (
+                    
+                        <tr>
+                            <td>{element.name}</td>
+                            <td>{element.email}</td>
+                            <td>{element.phone}</td>
+                            <td>{element.age}</td>
+                        </tr>
+                    
+                   
+                    )
+                    }): null}
+                    </table>
                     </div>
                 )
             })}
